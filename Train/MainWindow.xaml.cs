@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Drawing;
 
 namespace Train
 {
@@ -25,6 +26,8 @@ namespace Train
             InitializeComponent();
 
             DockPanel week = new DockPanel();
+
+            week.Background = new SolidColorBrush(Colors.LightBlue);
 
             Grid.SetRow(week, 0);
 
