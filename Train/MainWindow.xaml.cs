@@ -25,19 +25,43 @@ namespace Train
         {
             InitializeComponent();
 
-            DockPanel week = new DockPanel();
+            DockPanel week1 = new DockPanel();
 
-            week.Background = new SolidColorBrush(Colors.LightBlue);
+            week1.Background = Brushes.Blue;
 
-            Grid.SetRow(week, 0);
+            week1.Height = 50;
+
+            week1.Width = 50;
 
             Label label = new Label();
 
-            label.Content = "test";
+            label.Content = "test1";
 
-            week.Children.Add(label);
+            week1.Children.Add(label);
 
-            mainGrid.Children.Add(week);
+            DockPanel.SetDock(week1, Dock.Top);
+
+            //this.SizeToContent = SizeToContent.WidthAndHeight;
+
+            MainDocker.Children.Add(week1);
+
+            DockPanel week2 = new DockPanel();
+
+            week2.Background = Brushes.Blue;
+
+            week2.Height = 50;
+
+            week2.Width = 50;
+
+            Label label2 = new Label();
+
+            label2.Content = "test2";
+
+            week2.Children.Add(label2);
+
+            DockPanel.SetDock(week2, Dock.Bottom);
+
+            MainDocker.Children.Add(week2);
         }
     }
 }
