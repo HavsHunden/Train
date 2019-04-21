@@ -23,6 +23,18 @@ namespace Train
         public MainWindow()
         {
             InitializeComponent();
+
+            DockPanel week = new DockPanel();
+
+            Grid.SetRow(week, 0);
+
+            Label label = new Label();
+
+            label.Content = "test";
+
+            week.Children.Add(label);
+
+            mainGrid.Children.Add(week);
         }
     }
 }
