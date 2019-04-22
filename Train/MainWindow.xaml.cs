@@ -25,9 +25,9 @@ namespace Train
         {
             InitializeComponent();
 
-            DockPanel week = new DockPanel();
+            DockPanel week1 = new DockPanel();
 
-            week.Background = new SolidColorBrush(Colors.LightBlue);
+            week1.Background = Brushes.Blue;
 
             Label label = new Label();
 
@@ -35,7 +35,7 @@ namespace Train
 
             DockPanel.SetDock(week, Dock.Top);
 
-            week.Children.Add(label);
+            DockPanel.SetDock(week2, Dock.Bottom);
 
             MainDock.Children.Add(week);
         }
