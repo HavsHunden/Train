@@ -29,33 +29,84 @@ namespace Train
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            //DockPanel week2 = new DockPanel();
-            //week2.Background = new SolidColorBrush(Colors.LightBlue);
-            //Label label2 = new Label();
-            //label2.Content = "test";
-            //week2.Children.Add(label2);
-            //DockPanel.SetDock(week2, Dock.Top);
-            //MainDock.Children.Add(week2)
 
             Week week1 = new Week();
             MainDock.Children.Add(week1);
 
         }
 
+        private void MainCanvas_ContextMenuOpening(object sender, ContextMenuEventArgs e)
+        {
+            UIElement element = (UIElement)Mouse.DirectlyOver;
 
+            Week week = element as Week;
+
+            MenuItem weekItem = new MenuItem();
+            weekItem.Header = "Week";
+            MainContextMenu.Items.Add(weekItem);
+
+            if (week != null)
+            {
+
+                MainContextMenu.Items.Add(weekItem);
+            }
+        }
     }
 
-    public partial class Week : DockPanel
+    public class Week : DockPanel
     {
 
         public Week()
         {
             DockPanel.SetDock(this, Dock.Top);
 
+            this.Background = Brushes.Blue;
+
             Label weekLabel = new Label();
-            weekLabel.Content = "Test";
+            weekLabel.Content = "Week";
             this.Children.Add(weekLabel);
+
+            for (int i = 0; i < 3; i++)
+            {
+                Session session = new Session();
+                this.Children.Add(session);
+            }
+            
         }
 
+    }
+
+    public class Session : DockPanel
+    {
+        public Session()
+        {
+            DockPanel.SetDock(this, Dock.Top);
+
+            Label sessionLabel = new Label();
+            sessionLabel.Content = "Session";
+            this.Children.Add(sessionLabel);
+
+            Random rand = new Random();
+            int num = rand.Next(5);
+
+            for (int i = 0; i < num; i++)
+            {
+                Slot slot = new Slot();
+                this.Children.Add(slot);
+            }
+
+        }
+    }
+
+    public class Slot : DockPanel
+    {
+        public Slot()
+        {
+            DockPanel.SetDock(this, Dock.Top);
+
+            Label slotLabel = new Label();
+            slotLabel.Content = "Slot";
+            this.Children.Add(slotLabel);
+        }
     }
 }

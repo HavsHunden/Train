@@ -7,9 +7,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
 
-    <Canvas Name="MainCanvas" Background="Yellow">
+    <Canvas Name="MainCanvas" Background="Yellow" ContextMenuOpening="MainCanvas_ContextMenuOpening">
         <Canvas.ContextMenu>
-            <ContextMenu>
+            <ContextMenu Name ="MainContextMenu">
                 <MenuItem Header="Add week" Click="MenuItem_Click">
                     
                 </MenuItem>
