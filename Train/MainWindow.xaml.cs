@@ -25,33 +25,37 @@ namespace Train
         {
             InitializeComponent();
 
-            DockPanel week1 = new DockPanel();
-
-            week1.Background = Brushes.Blue;
-
-            Label label = new Label();
-
-            label.Content = "testtesttest";
-
-            DockPanel.SetDock(week, Dock.Top);
-
-            DockPanel.SetDock(week2, Dock.Bottom);
-
-            MainDock.Children.Add(week);
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            DockPanel week2 = new DockPanel();
-            week2.Background = new SolidColorBrush(Colors.LightBlue);
-            Label label2 = new Label();
-            label2.Content = "test";
-            week2.Children.Add(label2);
-            DockPanel.SetDock(week2, Dock.Top);
-            MainDock.Children.Add(week2);
+            //DockPanel week2 = new DockPanel();
+            //week2.Background = new SolidColorBrush(Colors.LightBlue);
+            //Label label2 = new Label();
+            //label2.Content = "test";
+            //week2.Children.Add(label2);
+            //DockPanel.SetDock(week2, Dock.Top);
+            //MainDock.Children.Add(week2)
+
+            Week week1 = new Week();
+            MainDock.Children.Add(week1);
 
         }
 
+
+    }
+
+    public partial class Week : DockPanel
+    {
+
+        public Week()
+        {
+            DockPanel.SetDock(this, Dock.Top);
+
+            Label weekLabel = new Label();
+            weekLabel.Content = "Test";
+            this.Children.Add(weekLabel);
+        }
 
     }
 }
