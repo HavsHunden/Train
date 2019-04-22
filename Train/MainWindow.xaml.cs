@@ -29,15 +29,29 @@ namespace Train
 
             week.Background = new SolidColorBrush(Colors.LightBlue);
 
-            Grid.SetRow(week, 0);
-
             Label label = new Label();
 
-            label.Content = "test";
+            label.Content = "testtesttest";
+
+            DockPanel.SetDock(week, Dock.Top);
 
             week.Children.Add(label);
 
-            mainGrid.Children.Add(week);
+            MainDock.Children.Add(week);
         }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            DockPanel week2 = new DockPanel();
+            week2.Background = new SolidColorBrush(Colors.LightBlue);
+            Label label2 = new Label();
+            label2.Content = "test";
+            week2.Children.Add(label2);
+            DockPanel.SetDock(week2, Dock.Top);
+            MainDock.Children.Add(week2);
+
+        }
+
+
     }
 }

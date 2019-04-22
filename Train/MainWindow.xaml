@@ -6,7 +6,20 @@
         xmlns:local="clr-namespace:Train"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid Name="mainGrid">
+
+    <Canvas Name="MainCanvas" Background="Yellow">
+        <Canvas.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Add week" Click="MenuItem_Click">
+                    
+                </MenuItem>
+            </ContextMenu>
+        </Canvas.ContextMenu>
         
-    </Grid>
+        <DockPanel Name="MainDock" LastChildFill="False" Background="Aquamarine">
+
+
+        </DockPanel>
+    </Canvas>
+
 </Window>
