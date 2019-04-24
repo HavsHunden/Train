@@ -33,16 +33,23 @@ namespace Train
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
 
-            Week week1 = new Week();
+            WeekGUI week1 = new WeekGUI();
             MainDock.Children.Add(week1);
 
         }
 
         private void MainCanvas_ContextMenuOpening(object sender, ContextMenuEventArgs e)
         {
-            List<Week> WeekList = MainDock.Children.OfType<Week>().ToList<Week>();
+            if (tempMenuItems)
+            {
+                int num = MainContextMenu.Items.Count;
+                MainContextMenu.Items.RemoveAt(num - 1);
+                tempMenuItems = false;
+            }
 
-            foreach (Week element in WeekList)
+            List<WeekGUI> WeekList = MainDock.Children.OfType<WeekGUI>().ToList<WeekGUI>();
+
+            foreach (WeekGUI element in WeekList)
             {
                 if (element.IsMouseOver)
                 {
@@ -67,10 +74,15 @@ namespace Train
         }
     }
 
-    public class Week : DockPanel
+    public abstract class PanelGUI : DockPanel
     {
 
-        public Week()
+    }
+
+    public class WeekGUI : PanelGUI
+    {
+
+        public WeekGUI()
         {
             DockPanel.SetDock(this, Dock.Top);
 
@@ -82,7 +94,7 @@ namespace Train
 
             for (int i = 0; i < 3; i++)
             {
-                Session session = new Session();
+                SessionGUI session = new SessionGUI();
                 this.Children.Add(session);
             }
             
@@ -90,9 +102,9 @@ namespace Train
 
     }
 
-    public class Session : DockPanel
+    public class SessionGUI : PanelGUI
     {
-        public Session()
+        public SessionGUI()
         {
             DockPanel.SetDock(this, Dock.Top);
 
@@ -105,16 +117,16 @@ namespace Train
 
             for (int i = 0; i < num; i++)
             {
-                Slot slot = new Slot();
+                SlotGUI slot = new SlotGUI();
                 this.Children.Add(slot);
             }
 
         }
     }
 
-    public class Slot : DockPanel
+    public class SlotGUI : PanelGUI
     {
-        public Slot()
+        public SlotGUI()
         {
             DockPanel.SetDock(this, Dock.Top);
 
