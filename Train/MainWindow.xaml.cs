@@ -20,7 +20,10 @@ namespace Train
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
+
     {
+        bool tempMenuItems;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -37,18 +40,29 @@ namespace Train
 
         private void MainCanvas_ContextMenuOpening(object sender, ContextMenuEventArgs e)
         {
-            UIElement element = (UIElement)Mouse.DirectlyOver;
+            List<Week> WeekList = MainDock.Children.OfType<Week>().ToList<Week>();
 
-            Week week = element as Week;
-
-            MenuItem weekItem = new MenuItem();
-            weekItem.Header = "Week";
-            MainContextMenu.Items.Add(weekItem);
-
-            if (week != null)
+            foreach (Week element in WeekList)
             {
+                if (element.IsMouseOver)
+                {
+                    MenuItem menuItem = new MenuItem();
+                    menuItem.Header = "japp";
+                    MainContextMenu.Items.Add(menuItem);
 
-                MainContextMenu.Items.Add(weekItem);
+                    tempMenuItems = true;
+                }
+            }
+ 
+        }
+
+        private void MainCanvas_ContextMenuClosing(object sender, ContextMenuEventArgs e)
+        {
+            if (tempMenuItems)
+            {
+                int num = MainContextMenu.Items.Count;
+                MainContextMenu.Items.RemoveAt(num - 1);
+                tempMenuItems = false;
             }
         }
     }
