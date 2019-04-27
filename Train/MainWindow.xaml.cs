@@ -47,9 +47,9 @@ namespace Train
                 tempMenuItems = false;
             }
 
-            List<WeekGUI> WeekList = MainDock.Children.OfType<WeekGUI>().ToList<WeekGUI>();
+            List<PanelGUI> WeekList = MainDock.Children.OfType<PanelGUI>().ToList<PanelGUI>();
 
-            foreach (WeekGUI element in WeekList)
+            foreach (PanelGUI element in WeekList)
             {
                 if (element.IsMouseOver)
                 {
@@ -76,7 +76,26 @@ namespace Train
 
     public abstract class PanelGUI : DockPanel
     {
+        protected Label panelGUIlabel;
+        protected Nullable<Point> dragStart = null;
 
+        protected override void OnMouseDown(MouseButtonEventArgs e)
+        {
+            this.Background = Brushes.Aqua;
+            dragStart = e.GetPosition(this);
+            this.CaptureMouse();
+
+        }
+
+        //protected override void OnMouseMove(MouseEventArgs e)
+        //{
+        //    if(dragStart != null && e.LeftButton == MouseButtonState.Pressed)
+        //    {
+        //        Point p2 = e.GetPosition();
+        //    }
+
+        //    base.OnMouseMove(e);
+        //}
     }
 
     public class WeekGUI : PanelGUI
@@ -88,9 +107,9 @@ namespace Train
 
             this.Background = Brushes.Blue;
 
-            Label weekLabel = new Label();
-            weekLabel.Content = "Week";
-            this.Children.Add(weekLabel);
+            panelGUIlabel = new Label();
+            panelGUIlabel.Content = "Week";
+            this.Children.Add(panelGUIlabel);
 
             for (int i = 0; i < 3; i++)
             {
@@ -108,9 +127,9 @@ namespace Train
         {
             DockPanel.SetDock(this, Dock.Top);
 
-            Label sessionLabel = new Label();
-            sessionLabel.Content = "Session";
-            this.Children.Add(sessionLabel);
+            panelGUIlabel = new Label();
+            panelGUIlabel.Content = "Session";
+            this.Children.Add(panelGUIlabel);
 
             Random rand = new Random();
             int num = rand.Next(5);
@@ -130,9 +149,9 @@ namespace Train
         {
             DockPanel.SetDock(this, Dock.Top);
 
-            Label slotLabel = new Label();
-            slotLabel.Content = "Slot";
-            this.Children.Add(slotLabel);
+            panelGUIlabel = new Label();
+            panelGUIlabel.Content = "Slot";
+            this.Children.Add(panelGUIlabel);
         }
     }
 }
