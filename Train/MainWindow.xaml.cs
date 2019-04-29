@@ -22,11 +22,55 @@ namespace Train
     public partial class MainWindow : Window
 
     {
+
+        Label label;
         bool tempMenuItems;
 
         public MainWindow()
         {
             InitializeComponent();
+
+            label = new Label();
+            label.Content = "test";
+            MainDock.Children.Add(label);
+        }
+
+        public void ChangeLabel(String change)
+        {
+            Label l = MainDock.Children[0] as Label;
+            l.Content = change;
+        }
+
+        //Method for Removing elements
+        public void RemoveObject(FrameworkElement el)
+        {
+            if (el.Parent == null)
+                return;
+
+            var panel = el.Parent as Panel;
+            if (panel != null)
+            {
+                panel.Children.Remove(el);
+                return;
+            }
+
+            var decorator = el.Parent as Decorator;
+            if (decorator != null)
+            {
+                decorator.Child = null;
+                return;
+            }
+
+            var contentPresenter = el.Parent as ContentPresenter;
+            if (contentPresenter != null)
+            {
+                contentPresenter.Content = null;
+                return;
+            }
+
+            var contentControl = el.Parent as ContentControl;
+            if (contentControl != null)
+                contentControl.Content = null;
 
         }
 
@@ -37,6 +81,12 @@ namespace Train
             MainDock.Children.Add(week1);
 
         }
+
+        public Canvas GetMainDock()
+        {
+            return MainCanvas;
+        }
+
 
         private void MainCanvas_ContextMenuOpening(object sender, ContextMenuEventArgs e)
         {
@@ -78,24 +128,38 @@ namespace Train
     {
         protected Label panelGUIlabel;
         protected Nullable<Point> dragStart = null;
+        private MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
+        Point test = new Point();
 
         protected override void OnMouseDown(MouseButtonEventArgs e)
         {
             this.Background = Brushes.Aqua;
+
+            test = e.GetPosition(this);
+
+
+
+            mainWindow.ChangeLabel(test.ToString());
+
+            //mainWindow.RemoveObject(this);
+
+
+
+            //mainWindow.MainCanvas.Children.Add(this);
             dragStart = e.GetPosition(this);
-            this.CaptureMouse();
+            //CaptureMouse();
 
         }
 
-        //protected override void OnMouseMove(MouseEventArgs e)
-        //{
-        //    if(dragStart != null && e.LeftButton == MouseButtonState.Pressed)
-        //    {
-        //        Point p2 = e.GetPosition();
-        //    }
+        protected override void OnMouseMove(MouseEventArgs e)
+        {
+            if (dragStart != null && e.LeftButton == MouseButtonState.Pressed)
+            {
+                Point p2 = e.GetPosition(mainWindow.MainCanvas);
+            }
 
-        //    base.OnMouseMove(e);
-        //}
+            base.OnMouseMove(e);
+        }
     }
 
     public class WeekGUI : PanelGUI

@@ -17,12 +17,8 @@
             </ContextMenu>
         </Canvas.ContextMenu>
         
-        <DockPanel Name="MainDock" LastChildFill="False" Background="Aquamarine">
-            <Label Content="Label" Name ="overWhat"/>
+        <DockPanel Name="MainDock" LastChildFill="False" Background="Aquamarine"/>
 
-
-        </DockPanel>
-        
     </Canvas>
 
 </Window>
