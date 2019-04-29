@@ -129,15 +129,18 @@ namespace Train
         protected Label panelGUIlabel;
         protected Nullable<Point> dragStart = null;
         private MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
-        Point test = new Point();
+        Point onCanvas = new Point();
+        Point onPanel = new Point();
+        Vector test = new Vector();
 
         protected override void OnMouseDown(MouseButtonEventArgs e)
         {
             this.Background = Brushes.Aqua;
 
-            test = e.GetPosition(this);
+            onCanvas = e.GetPosition(mainWindow.MainCanvas);
+            onPanel = e.GetPosition(this);
 
-
+            test = Point.Subtract(onCanvas, onPanel);
 
             mainWindow.ChangeLabel(test.ToString());
 
