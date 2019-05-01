@@ -149,12 +149,10 @@ namespace Train
 
             onCanvas = e.GetPosition(parent);
 
-            //onCanvas = e.GetPosition(mainWindow.MainCanvas);
             onPanel = e.GetPosition(this);
 
             test = Point.Subtract(onCanvas, onPanel);
 
-            //mainWindow.ChangeLabel(test.ToString());
 
             if (this.Parent is DockPanel)
             {
@@ -190,12 +188,9 @@ namespace Train
         protected override void OnMouseUp(MouseButtonEventArgs e)
         {
             base.OnMouseUp(e);
-            int change = 0;
 
             dragStart = null;
             ReleaseMouseCapture();
-
-            //Panel parent = this.Parent as Panel;
 
             if (parentDockPanel != null)
             {
@@ -205,7 +200,6 @@ namespace Train
                 {
                     if (parentDockPanel.Children[i] is PlaceholderGUI)
                     {
-                        //change++;
                         parentDockPanel.Children.RemoveAt(i);
                     }
                 }
@@ -220,36 +214,12 @@ namespace Train
                 {
                     if (parentCanvas.Children[i] is PlaceholderGUI)
                     {
-                        //change++;
                         parentCanvas.Children.RemoveAt(i);
                     }
                 }
             }
 
-
-            //mainWindow.ChangeLabel(change.ToString());
-
             mainWindow.alreadyGrabbed = false;
-
-            //List<PlaceholderGUI> removal = parent.Children.OfType<PlaceholderGUI>().ToList<PlaceholderGUI>();
-
-            //foreach (PlaceholderGUI obj in removal)
-            //{
-
-            //    mainWindow.RemoveObject(obj);
-            //}
-
-            //foreach (var obj in parent.Children)
-            //{
-            //    if (obj is PlaceholderGUI)
-            //    {
-            //        FrameworkElement frameworkElement = obj as FrameworkElement;
-
-            //        mainWindow.RemoveObject(frameworkElement);
-            //    }
-
-
-            //}
         }
 
         protected override void OnMouseMove(MouseEventArgs e)
@@ -298,6 +268,8 @@ namespace Train
                 SessionGUI session = new SessionGUI();
                 this.Children.Add(session);
             }
+
+
             
         }
 
