@@ -143,16 +143,23 @@ namespace Train
                 return;
             }
 
+
+            mainWindow.ChangeLabel(this.GetType().ToString());
+
+
             mainWindow.alreadyGrabbed = true;
 
             Panel parent = this.Parent as Panel;
 
-            onCanvas = e.GetPosition(parent);
+            onCanvas = e.GetPosition(mainWindow.MainCanvas);
 
             onPanel = e.GetPosition(this);
 
             test = Point.Subtract(onCanvas, onPanel);
 
+            //dragStart = new Point(onCanvas.X - onPanel.X, onCanvas.Y - onPanel.Y);
+
+            //dragStart = onCanvas;
 
             if (this.Parent is DockPanel)
             {
@@ -176,12 +183,15 @@ namespace Train
 
 
             Canvas.SetLeft(this, test.X);
-            Canvas.SetLeft(this, test.Y);
+            Canvas.SetTop(this, test.Y);
 
             mainWindow.MainCanvas.Children.Add(this);
 
             //Ok, everything done, now we can start draging
             dragStart = e.GetPosition(this);
+
+            mainWindow.ChangeLabel(dragStart.ToString());
+
             CaptureMouse();
         }
 
@@ -280,6 +290,8 @@ namespace Train
         public SessionGUI()
         {
             DockPanel.SetDock(this, Dock.Top);
+
+            this.Background = Brushes.Cyan;
 
             panelGUIlabel = new Label();
             panelGUIlabel.Content = "Session";
