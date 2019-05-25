@@ -26,6 +26,8 @@ namespace Train
         Label label;
         bool tempMenuItems;
         public bool alreadyGrabbed = false;
+        Point onCanvas = new Point();
+        Point onPanel = new Point();
 
         public MainWindow()
         {
@@ -123,6 +125,43 @@ namespace Train
                 tempMenuItems = false;
             }
         }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (alreadyGrabbed)
+            {
+                return;
+            }
+
+            onCanvas = e.GetPosition(MainCanvas);
+
+            Control control = sender as Control;
+
+            onPanel = e.GetPosition(control);
+        }
+
+        //protected override void OnMouseDown(MouseButtonEventArgs e)
+        //{
+        //    if (alreadyGrabbed)
+        //    {
+        //        return;
+        //    }
+
+        //    onCanvas = e.GetPosition(MainCanvas);
+
+
+        //}
+
+        protected override void OnMouseUp(MouseButtonEventArgs e)
+        {
+
+        }
+
+        protected override void OnMouseMove(MouseEventArgs e)
+        {
+
+        }
+        
     }
 
     public abstract class PanelGUI : DockPanel

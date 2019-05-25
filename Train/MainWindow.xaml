@@ -5,8 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Train"
         mc:Ignorable="d"
-        Name= "MyMainWindow"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" MouseDown="Window_MouseDown">
 
     <Canvas Name="MainCanvas" Background="Yellow" ContextMenuOpening="MainCanvas_ContextMenuOpening" ContextMenuClosing="MainCanvas_ContextMenuClosing">
         <Canvas.ContextMenu>
