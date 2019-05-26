@@ -28,6 +28,10 @@ namespace Train
         public bool alreadyGrabbed = false;
         Point onCanvas = new Point();
         Point onPanel = new Point();
+        Vector test = new Vector();
+        DockPanel parentDockPanel;
+        Canvas parentCanvas;
+        protected Nullable<Point> dragStart = null;
 
         public MainWindow()
         {
@@ -135,22 +139,38 @@ namespace Train
 
             onCanvas = e.GetPosition(MainCanvas);
 
-            Control control = sender as Control;
+            PanelGUI control = sender as PanelGUI;
 
             onPanel = e.GetPosition(control);
+
+            test = Point.Subtract(onCanvas, onPanel);
+
+            if (control.Parent is DockPanel)
+            {
+                parentDockPanel = control.Parent as DockPanel;
+                PlaceholderGUI placeholder = new PlaceholderGUI(control.ActualWidth, control.ActualHeight);
+                parentDockPanel.Children.Insert(parentDockPanel.Children.IndexOf(control), placeholder);
+
+                RemoveObject(control);
+                Canvas.SetLeft(control, test.X);
+                Canvas.SetTop(control, test.Y);
+
+                MainCanvas.Children.Add(control);
+            }
+
+            if (control.Parent is Canvas)
+            {
+                parentCanvas = control.Parent as Canvas;
+            }
+
+            //Ok, everything done, now we can start draging
+            dragStart = e.GetPosition(this);
+
+            ChangeLabel(dragStart.ToString());
+
+            CaptureMouse();
+
         }
-
-        //protected override void OnMouseDown(MouseButtonEventArgs e)
-        //{
-        //    if (alreadyGrabbed)
-        //    {
-        //        return;
-        //    }
-
-        //    onCanvas = e.GetPosition(MainCanvas);
-
-
-        //}
 
         protected override void OnMouseUp(MouseButtonEventArgs e)
         {
@@ -175,64 +195,64 @@ namespace Train
         DockPanel parentDockPanel;
         Canvas parentCanvas;
 
-        protected override void OnMouseDown(MouseButtonEventArgs e)
-        {
-            if (mainWindow.alreadyGrabbed == true)
-            {
-                return;
-            }
+        //protected override void OnMouseDown(MouseButtonEventArgs e)
+        //{
+        //    if (mainWindow.alreadyGrabbed == true)
+        //    {
+        //        return;
+        //    }
 
 
-            mainWindow.ChangeLabel(this.GetType().ToString());
+        //    mainWindow.ChangeLabel(this.GetType().ToString());
 
 
-            mainWindow.alreadyGrabbed = true;
+        //    mainWindow.alreadyGrabbed = true;
 
-            Panel parent = this.Parent as Panel;
+        //    Panel parent = this.Parent as Panel;
 
-            onCanvas = e.GetPosition(mainWindow.MainCanvas);
+        //    onCanvas = e.GetPosition(mainWindow.MainCanvas);
 
-            onPanel = e.GetPosition(this);
+        //    onPanel = e.GetPosition(this);
 
-            test = Point.Subtract(onCanvas, onPanel);
+        //    test = Point.Subtract(onCanvas, onPanel);
 
-            //dragStart = new Point(onCanvas.X - onPanel.X, onCanvas.Y - onPanel.Y);
+        //    //dragStart = new Point(onCanvas.X - onPanel.X, onCanvas.Y - onPanel.Y);
 
-            //dragStart = onCanvas;
+        //    //dragStart = onCanvas;
 
-            if (this.Parent is DockPanel)
-            {
-                parentDockPanel = this.Parent as DockPanel;
-            }
+        //    if (this.Parent is DockPanel)
+        //    {
+        //        parentDockPanel = this.Parent as DockPanel;
+        //    }
 
-            if (this.Parent is Canvas)
-            {
-                parentCanvas = this.Parent as Canvas;
-            }
-
-            
-
-            PlaceholderGUI placeholder = new PlaceholderGUI(this.ActualWidth, this.ActualHeight);
-
-            parent.Children.Insert(parent.Children.IndexOf(this), placeholder);
-
-            
-            mainWindow.RemoveObject(this);
+        //    if (this.Parent is Canvas)
+        //    {
+        //        parentCanvas = this.Parent as Canvas;
+        //    }
 
 
 
-            Canvas.SetLeft(this, test.X);
-            Canvas.SetTop(this, test.Y);
+        //    PlaceholderGUI placeholder = new PlaceholderGUI(this.ActualWidth, this.ActualHeight);
 
-            mainWindow.MainCanvas.Children.Add(this);
+        //    parent.Children.Insert(parent.Children.IndexOf(this), placeholder);
 
-            //Ok, everything done, now we can start draging
-            dragStart = e.GetPosition(this);
 
-            mainWindow.ChangeLabel(dragStart.ToString());
+        //    mainWindow.RemoveObject(this);
 
-            CaptureMouse();
-        }
+
+
+        //    Canvas.SetLeft(this, test.X);
+        //    Canvas.SetTop(this, test.Y);
+
+        //    mainWindow.MainCanvas.Children.Add(this);
+
+        //    //Ok, everything done, now we can start draging
+        //    dragStart = e.GetPosition(this);
+
+        //    mainWindow.ChangeLabel(dragStart.ToString());
+
+        //    CaptureMouse();
+        //}
 
         protected override void OnMouseUp(MouseButtonEventArgs e)
         {
